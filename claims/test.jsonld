@@ -1,0 +1,13 @@
+{
+    "@context": ["https://schema.org/", "https://w3id.org/security/v1"],
+    "id": null,
+    "type": ["Credential", "Identity", "Person"],
+    "issuer": null,
+    "issued": null,
+    "label": null,
+    "claim": {
+	"knows": null,
+	"relationship": null,
+	"alternate-name": null
+    }
+}
