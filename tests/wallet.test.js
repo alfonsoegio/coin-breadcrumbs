@@ -28,5 +28,6 @@ it('Should be able to read a Wallet from a file and retrieve utxo info', async f
   wallet.keys.key.map((x) => x.info.should.include.key('status'))
   wallet.keys.key.map((x) => x.info.status.should.be.a('string'))
   wallet.keys.key.map((x) => x.info.status.should.equal('success'))
+  await wallet.refreshWalletInfo(true)
   wallet.store()
 })
