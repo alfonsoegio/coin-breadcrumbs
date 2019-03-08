@@ -10,7 +10,7 @@ it('Should be able to build a Wallet', function () {
   let wallet = new Wallet(FILENAME, MNEMONIC, DEFAULT_ADDRESS_NO)
   wallet.keys.key.should.be.an('array')
   wallet.keys.key.length.should.be.a('number')
-  wallet.keys.key.length.should.equal(4)
+  wallet.keys.key.length.should.equal(3)
   wallet.keys.key[0].should.be.an('object')
   wallet.keys.key[0].wif.should.be.a('string')
   wallet.keys.key[0].wif.should.equal('cVaapSC8iinubjXcVHBnf8hTKsKiwLnzqmB6NzHE8n3UMUTRCmf7')
@@ -30,4 +30,13 @@ it('Should be able to read a Wallet from a file and retrieve utxo info', async f
   wallet.keys.key.map((x) => x.info.status.should.equal('success'))
   await wallet.refreshWalletInfo(true)
   wallet.store()
+})
+
+it('Should be able to read a Wallet and generate a new key', async function () {
+  let wallet = new Wallet(FILENAME)
+  wallet.keys.key.length.should.equal(3)
+  wallet.generateNewKey()
+  wallet.keys.key.length.should.equal(4)
+  await wallet.refreshWalletInfo(true)
+  console.log(JSON.stringify(wallet, null, 4))
 })
