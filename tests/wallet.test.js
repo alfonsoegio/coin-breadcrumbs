@@ -19,3 +19,14 @@ it('Should be able to build a Wallet', function () {
   wallet.should.eql(secondWallet)
   fs.unlinkSync(FILENAME)
 })
+
+it('Should be able to read a Wallet from a file and retrieve utxo info', async function () {
+  let mnemonic = 'question flock gloom frequent fog grief ticket glory beef truly settle suffer'
+  let wallet = new Wallet(FILENAME, mnemonic, 4)
+  await wallet.refreshWalletInfo()
+  wallet.keys.key.map((x) => x.info.should.be.an('object'))
+  wallet.keys.key.map((x) => x.info.should.include.key('status'))
+  wallet.keys.key.map((x) => x.info.status.should.be.a('string'))
+  wallet.keys.key.map((x) => x.info.status.should.equal('success'))
+  wallet.store()
+})
