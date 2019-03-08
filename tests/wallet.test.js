@@ -38,5 +38,4 @@ it('Should be able to read a Wallet and generate a new key', async function () {
   wallet.generateNewKey()
   wallet.keys.key.length.should.equal(4)
   await wallet.refreshWalletInfo(true)
-  console.log(JSON.stringify(wallet, null, 4))
 })

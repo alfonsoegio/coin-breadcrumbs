@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "time npx mocha tests/*.test.js --timeout 20000 && npx eslint index.js tests/*.js lib/*.js"
+    "test": "npx mocha tests/*.test.js --timeout 90000 && npx eslint index.js tests/*.js lib/*.js"
   },
   "author": "",
   "license": "ISC",
