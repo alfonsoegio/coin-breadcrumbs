@@ -1,17 +1,18 @@
 {
     "env": {
-        "browser": false,
-        "es6": true
+	"browser": false,
+	"es6": true
     },
     "extends": "standard",
     "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly",
-        "it": "it"
+	"Atomics": "readonly",
+	"SharedArrayBuffer": "readonly",
+      "it": "it",
+      "xit": "xit"
     },
     "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
+	"ecmaVersion": 2018,
+	"sourceType": "module"
     },
     "rules": {
     }
