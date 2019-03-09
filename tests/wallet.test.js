@@ -47,6 +47,8 @@ it('should be able to read a wallet and find an UTXO', async function () {
   utxo.address.should.be.a('string')
   utxo.wif.should.be.a('string')
   utxo.value.should.be.a('string')
+  utxo.txId.should.be.a('string')
+  utxo.utxoIndex.should.be.a('number')
 })
 
 it('should be able to read a wallet and find a fresh UTXO', async function () {
