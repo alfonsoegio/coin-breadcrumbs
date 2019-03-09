@@ -48,3 +48,11 @@ it('should be able to read a wallet and find an UTXO', async function () {
   utxo.wif.should.be.a('string')
   utxo.value.should.be.a('string')
 })
+
+it('should be able to read a wallet and find a fresh UTXO', async function () {
+  let wallet = new Wallet(FILENAME)
+  await wallet.refreshWalletInfo(true)
+  let utxo = await wallet.getFirstFreshUtxo()
+  utxo.address.should.be.a('string')
+  utxo.wif.should.be.a('string')
+})
