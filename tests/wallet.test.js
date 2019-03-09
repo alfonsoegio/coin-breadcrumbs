@@ -4,7 +4,7 @@ require('chai').should()
 
 const FILENAME = '.wallet/test.json'
 const MNEMONIC = 'question flock gloom frequent fog grief ticket glory beef truly settle suffer'
-const DEFAULT_ADDRESS_NO = 3
+const DEFAULT_ADDRESS_NO = 10
 
 it('should be able to build a wallet', function () {
   let wallet = new Wallet(FILENAME, MNEMONIC, DEFAULT_ADDRESS_NO)
@@ -33,9 +33,9 @@ it('should be able to read a wallet from a file and retrieve utxo info', async f
 
 it('should be able to read a wallet and generate a new key', async function () {
   let wallet = new Wallet(FILENAME)
-  wallet.keys.key.length.should.equal(3)
+  wallet.keys.key.length.should.equal(DEFAULT_ADDRESS_NO)
   wallet.generateNewKey()
-  wallet.keys.key.length.should.equal(4)
+  wallet.keys.key.length.should.equal(DEFAULT_ADDRESS_NO + 1)
   await wallet.refreshWalletInfo(true)
 })
 
