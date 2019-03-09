@@ -6,7 +6,7 @@ const FILENAME = '.wallet/test.json'
 const MNEMONIC = 'question flock gloom frequent fog grief ticket glory beef truly settle suffer'
 const DEFAULT_ADDRESS_NO = 3
 
-it('Should be able to build a Wallet', function () {
+it('should be able to build a wallet', function () {
   let wallet = new Wallet(FILENAME, MNEMONIC, DEFAULT_ADDRESS_NO)
   wallet.keys.key.should.be.an('array')
   wallet.keys.key.length.should.be.a('number')
@@ -21,7 +21,7 @@ it('Should be able to build a Wallet', function () {
   fs.unlinkSync(FILENAME)
 })
 
-it('Should be able to read a Wallet from a file and retrieve utxo info', async function () {
+it('should be able to read a wallet from a file and retrieve utxo info', async function () {
   let wallet = new Wallet(FILENAME, MNEMONIC, DEFAULT_ADDRESS_NO)
   await wallet.refreshWalletInfo()
   wallet.keys.key.map((x) => x.info.should.be.an('object'))
@@ -32,10 +32,19 @@ it('Should be able to read a Wallet from a file and retrieve utxo info', async f
   wallet.store()
 })
 
-it('Should be able to read a Wallet and generate a new key', async function () {
+it('should be able to read a wallet and generate a new key', async function () {
   let wallet = new Wallet(FILENAME)
   wallet.keys.key.length.should.equal(3)
   wallet.generateNewKey()
   wallet.keys.key.length.should.equal(4)
   await wallet.refreshWalletInfo(true)
+})
+
+it('should be able to read a wallet and find an UTXO', async function () {
+  let wallet = new Wallet(FILENAME)
+  await wallet.refreshWalletInfo(true)
+  let utxo = await wallet.getFirstUtxo()
+  utxo.address.should.be.a('string')
+  utxo.wif.should.be.a('string')
+  utxo.value.should.be.a('string')
 })
