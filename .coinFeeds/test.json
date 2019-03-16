@@ -1,0 +1,12 @@
+{
+  "filename": ".coinFeeds/test.json",
+  "txref": "txtest1:8gsj-6z9q-qpqq-k4ej-xt",
+  "timeline": [
+    {
+      "url": "http://example.com/fc86a780-4254-11e9-a3ab-350e9380eeab",
+      "time": 1552127149,
+      "date": "2019-03-09T10:25:49.000Z",
+      "did": "txtest1:8gsj-6z9q-qpqq-k4ej-xt"
+    }
+  ]
+}
