@@ -6,5 +6,5 @@ const DEFAULT_FILENAME = '.coinFeeds/test.json'
 
 it('coinFeed should resolve a timeline given a txref', async function () {
   let feed = new CoinFeed(DEFAULT_FILENAME, DEFAULT_TXREF)
-  await feed.resolve()
+  await feed.resolve(DEFAULT_TXREF)
 })
