@@ -9,9 +9,9 @@ const DEFAULT_ADDRESS_NO = 3
 const BASE_URL = 'http://example.com/'
 const DEFAULT_FEE = 0.0005
 
-it('should be able to build and broadcast a breadcrumb', function () {
+it('should be able to build and broadcast a breadcrumb', async function () {
   let wallet = new Wallet(FILENAME, MNEMONIC, DEFAULT_ADDRESS_NO)
   let url = BASE_URL + uuidv1()
   let breadcrumb = new Breadcrumb(wallet, url, DEFAULT_FEE)
-  breadcrumb.execute()
+  await breadcrumb.execute()
 })

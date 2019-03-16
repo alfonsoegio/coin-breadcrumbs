@@ -1,4 +1,3 @@
-const fs = require('fs')
 const Wallet = require('../lib/wallet.js')
 require('chai').should()
 
@@ -17,31 +16,28 @@ it('should be able to build a wallet', function () {
   wallet.keys.key[0].address.should.equal('msbXLN3KsvKQmPF8vc87EDUKuczM5HWEjc')
   let secondWallet = new Wallet(FILENAME)
   wallet.should.eql(secondWallet)
-  fs.unlinkSync(FILENAME)
+})
+
+it('should be able to read a wallet and generate a new key', async function () {
+  let wallet = new Wallet(FILENAME, MNEMONIC)
+  let currentLength = wallet.keys.key.length
+  await wallet.generateNewKey()
+  wallet.keys.key.length.should.equal(currentLength + 1)
+  wallet.store()
 })
 
 it('should be able to read a wallet from a file and retrieve utxo info', async function () {
   let wallet = new Wallet(FILENAME, MNEMONIC, DEFAULT_ADDRESS_NO)
-  await wallet.refreshWalletInfo()
+  await wallet.refreshWalletInfo(true)
   wallet.keys.key.map((x) => x.info.should.be.an('object'))
   wallet.keys.key.map((x) => x.info.should.include.key('status'))
   wallet.keys.key.map((x) => x.info.status.should.be.a('string'))
   wallet.keys.key.map((x) => x.info.status.should.equal('success'))
-  await wallet.refreshWalletInfo(true)
   wallet.store()
 })
 
-it('should be able to read a wallet and generate a new key', async function () {
-  let wallet = new Wallet(FILENAME)
-  wallet.keys.key.length.should.equal(DEFAULT_ADDRESS_NO)
-  wallet.generateNewKey()
-  wallet.keys.key.length.should.equal(DEFAULT_ADDRESS_NO + 1)
-  await wallet.refreshWalletInfo(true)
-})
-
 it('should be able to read a wallet and find an utxo', async function () {
-  let wallet = new Wallet(FILENAME)
-  await wallet.refreshWalletInfo(true)
+  let wallet = new Wallet(FILENAME, MNEMONIC)
   let utxo = await wallet.getFirstUtxo()
   if (utxo !== null) {
     utxo.address.should.be.a('string')
@@ -50,12 +46,4 @@ it('should be able to read a wallet and find an utxo', async function () {
     utxo.txId.should.be.a('string')
     utxo.utxoIndex.should.be.a('number')
   }
-})
-
-it('should be able to read a wallet and find a fresh address', async function () {
-  let wallet = new Wallet(FILENAME)
-  await wallet.refreshWalletInfo(true)
-  let address = await wallet.getFirstFreshAddress()
-  address.address.should.be.a('string')
-  address.wif.should.be.a('string')
 })

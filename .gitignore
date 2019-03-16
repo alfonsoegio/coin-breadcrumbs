@@ -1,3 +1,4 @@
 node_modules
 venv
 .wallet/*.json
+!.wallet/test.json
